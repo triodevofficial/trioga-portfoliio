@@ -1,0 +1,404 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --soft: #f4f6f9; /* card / section tint */
+  --soft-2: #eaeef4;
+  --navy: #0b2f57; /* headings, primary buttons */
+  --ink: #0f172a;
+  --body: #3b4658;
+  --muted: #6b7686;
+  --line: #e3e8ef;
+  --sky: #1c95d4; /* accent: links, two-tone headings */
+  --violet: #7c5cff;
+  --cyan: #22d3ee;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-io: cubic-bezier(0.76, 0, 0.24, 1);
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-soft: var(--soft);
+  --color-soft-2: var(--soft-2);
+  --color-navy: var(--navy);
+  --color-ink: var(--ink);
+  --color-body: var(--body);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-sky: var(--sky);
+  --color-violet: var(--violet);
+  --color-cyan: var(--cyan);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Page container: wide on large screens, fluid side padding that grows with the viewport. */
+@utility wrap {
+  width: 100%;
+  max-width: 2200px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 5vw, 96px);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  background: var(--background);
+  color: var(--body);
+}
+
+::selection {
+  background: rgb(28 149 212 / 0.2);
+}
+
+/* ───────────────────────── Buttons ───────────────────────── */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    transform 0.2s var(--ease-out);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+}
+.btn-primary:hover {
+  background: #0e3d70;
+}
+.btn-outline {
+  border: 1.5px solid var(--navy);
+  color: var(--navy);
+}
+.btn-outline:hover {
+  background: var(--navy);
+  color: #fff;
+}
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--sky);
+  font-weight: 500;
+}
+.link-arrow svg {
+  transition: transform 0.2s var(--ease-out);
+}
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+
+/* ───────────────────────── Scroll reveal ─────────────────────────
+   Only hidden once JS has flagged the page (data-js), so crawlers and
+   no-JS visitors always see the content. */
+
+html[data-js] [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 0.7s var(--ease-out),
+    transform 0.7s var(--ease-out);
+  transition-delay: calc(var(--d, 0) * 1ms);
+}
+html[data-js] [data-reveal][data-in] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ───────────────────────── Intro loader ───────────────────────── */
+
+#t-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: none;
+  place-items: center;
+  background: #fff;
+}
+
+html[data-intro="play"],
+html[data-intro="play"] body {
+  overflow: hidden;
+}
+
+html[data-intro="play"] #t-loader,
+html[data-intro="done"] #t-loader {
+  display: grid;
+}
+
+html[data-intro="done"] #t-loader {
+  animation: t-exit 0.9s var(--ease-io) forwards;
+  pointer-events: none;
+}
+
+html[data-intro="done"] .t-loader-inner {
+  animation: t-inner-exit 0.6s var(--ease-io) forwards;
+}
+
+.t-loader-glow {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(28 149 212 / 0.12), rgb(34 211 238 / 0.06) 45%, transparent 70%);
+  animation: t-breathe 2.4s ease-in-out infinite;
+}
+
+.t-loader-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.t-loader-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  color: var(--navy);
+}
+
+.t-loader-mark {
+  width: 76px;
+  height: 69px;
+}
+
+#t-loader .mark-seg {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  animation: t-draw 0.7s var(--ease-out) forwards;
+  animation-delay: calc(0.1s + var(--i) * 0.15s);
+}
+
+#t-loader .mark-dot {
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0);
+  animation: t-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.75s forwards;
+}
+
+/* The mark has 120° symmetry, so each spin lands on the identical shape — a seamless loop. */
+#t-loader .mark-body {
+  transform-box: fill-box;
+  transform-origin: 50% 66.667%; /* triangle centroid */
+  animation: t-spin 1.15s var(--ease-io) 1.05s infinite;
+}
+
+.t-loader-word {
+  width: 230px;
+  height: auto;
+  overflow: visible;
+}
+
+#t-loader .word-letter {
+  opacity: 0;
+  animation: t-letter 0.6s var(--ease-out) forwards;
+  animation-delay: calc(0.55s + var(--i) * 0.06s);
+}
+
+.t-loader-bar {
+  width: 140px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line);
+  overflow: hidden;
+}
+
+.t-loader-bar span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #1d4ed8, var(--sky), var(--cyan));
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: t-progress 1.9s var(--ease-io) forwards;
+}
+
+@keyframes t-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes t-pop {
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes t-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  60%,
+  100% {
+    transform: rotate(120deg);
+  }
+}
+@keyframes t-letter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes t-progress {
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes t-breathe {
+  50% {
+    transform: scale(1.12);
+    opacity: 0.75;
+  }
+}
+@keyframes t-inner-exit {
+  to {
+    transform: scale(1.08);
+    opacity: 0;
+  }
+}
+@keyframes t-exit {
+  0% {
+    clip-path: inset(0 0 0 0);
+  }
+  99% {
+    visibility: visible;
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+    visibility: hidden;
+  }
+}
+
+/* ───────────────────────── Idea → Code → App scene ─────────────────────────
+   Each stage re-mounts when it becomes active, so these entrance animations replay. */
+
+.i2a-in {
+  animation: i2a-rise 0.6s var(--ease-out) both;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+.i2a-pop {
+  animation: i2a-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+.i2a-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: i2a-draw 0.9s var(--ease-out) forwards;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+.i2a-type {
+  clip-path: inset(0 100% 0 0);
+  animation: i2a-type 0.45s steps(18, end) forwards;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+.i2a-grow {
+  transform-origin: bottom;
+  animation: i2a-grow 0.7s var(--ease-out) both;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+.i2a-caret {
+  animation: i2a-blink 1s steps(1) infinite;
+}
+.i2a-progress {
+  transform-origin: left;
+  animation: i2a-progress var(--dur, 5000ms) linear forwards;
+}
+.i2a-paused .i2a-progress {
+  animation-play-state: paused;
+}
+
+@keyframes i2a-rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+@keyframes i2a-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+}
+@keyframes i2a-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes i2a-type {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes i2a-grow {
+  from {
+    transform: scaleY(0);
+  }
+}
+@keyframes i2a-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes i2a-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Gentle float for decorative mockups */
+.float-y {
+  animation: float-y 6s ease-in-out infinite;
+}
+@keyframes float-y {
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  #t-loader .mark-body,
+  .t-loader-glow,
+  .float-y {
+    animation: none;
+  }
+  .i2a-in,
+  .i2a-pop,
+  .i2a-grow,
+  .i2a-type,
+  .i2a-draw {
+    animation-duration: 1ms;
+    animation-delay: 0ms;
+  }
+  html[data-js] [data-reveal] {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+}

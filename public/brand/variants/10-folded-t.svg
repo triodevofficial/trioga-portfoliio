@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800"><defs>
+<linearGradient id="g" x1="12" y1="12" x2="88" y2="76" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A78BFA"/><stop offset=".45" stop-color="#7C5CFF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+<linearGradient id="wg" x1="0" y1="0" x2="299" y2="40" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#A78BFA"/><stop offset=".5" stop-color="#7C5CFF"/><stop offset="1" stop-color="#22D3EE"/></linearGradient>
+<linearGradient id="badge" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B6CFF"/><stop offset="1" stop-color="#1FB8E0"/></linearGradient>
+<linearGradient id="ta" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#4F6BFF"/></linearGradient>
+<linearGradient id="tb" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C084FC"/><stop offset="1" stop-color="#5B3FE0"/></linearGradient>
+<linearGradient id="tc" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22D3EE"/><stop offset="1" stop-color="#2F5BFF"/></linearGradient>
+<radialGradient id="glow" cx="50%" cy="45%" r="55%"><stop offset="0" stop-color="#7C5CFF" stop-opacity=".22"/><stop offset=".6" stop-color="#22D3EE" stop-opacity=".04"/><stop offset="1" stop-color="#07070B" stop-opacity="0"/></radialGradient>
+<clipPath id="wc"><rect width="299" height="40"/></clipPath></defs><rect width="1200" height="800" fill="#07070B"/><rect width="1200" height="800" fill="url(#glow)"/><g transform="translate(454.4 151.6) scale(2.8)"><g stroke-linejoin="round" stroke-width="5">
+  <path d="M8 18H70L62 32H18Z" fill="url(#ta)" stroke="url(#ta)"/>
+  <path d="M80 18H96L74 46H58Z" fill="url(#tb)" stroke="url(#tb)"/>
+  <path d="M41 38H55V88L41 78Z" fill="url(#tc)" stroke="url(#tc)"/>
+</g></g><g transform="translate(375.75 525) scale(1.5)"><g clip-path="url(#wc)" fill="none" stroke="#EDEDF2" stroke-width="7" stroke-linecap="butt" stroke-linejoin="miter"><path transform="translate(0 0)" d="M0 3.5H38M19 3.5V40"/><path transform="translate(55 0)" d="M3.5 40V3.5H22.5A8 8 0 0 1 30.5 11.5V14A8 8 0 0 1 22.5 22H3.5M13 22L33 44"/><path transform="translate(106 0)" d="M3.5 0V40"/><path transform="translate(130 0)" d="M22 3.5A18.5 16.5 0 1 0 22 36.5A18.5 16.5 0 1 0 22 3.5Z"/><path transform="translate(191 0)" d="M36.17 9.4A18.5 16.5 0 1 0 40.5 20H27L22 14"/><path transform="translate(252 0)" d="M1.8 44L24 4L46.2 44"/></g></g></svg>
